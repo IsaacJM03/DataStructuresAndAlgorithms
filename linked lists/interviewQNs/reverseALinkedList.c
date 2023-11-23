@@ -11,7 +11,7 @@ struct ListNode* createNode(int value)
   struct ListNode* newNode = (struct ListNode*)malloc(sizeof(struct ListNode));
   newNode->value = value;
   newNode->next = NULL;
-  return newNode;
+  return newNode; //returns pointer to new node
 };
 
 struct ListNode* reverseListIterative(struct ListNode* head)
@@ -60,6 +60,7 @@ struct ListNode* reverseListTailRecursive(struct ListNode* head, struct ListNode
 
 int main() {
     // Create a sample linked list: 1 -> 2 -> 3 -> 4
+    // So, when you call createNode and pass an integer value, it(malloc, line 11) dynamically allocates memory for a struct ListNode, initializes its fields, and returns a pointer to this newly created node.
     struct ListNode* head = createNode(1);
     head->next = createNode(2);
     head->next->next = createNode(3);
