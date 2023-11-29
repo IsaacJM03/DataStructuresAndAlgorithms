@@ -3,7 +3,7 @@ class Node:
     self.value = value
     self.next = None
 
-  def __str__(self) -> str:
+  def __str__(self):
     return str(self.value)
   
 class LinkedList:
@@ -11,11 +11,11 @@ class LinkedList:
     self.head = None
     self.tail = None
   
-  def __iter__(self):
-    curNode = self.head
-    while curNode:
-      yield curNode 
-      curNode = curNode.next 
+  # def __iter__(self):
+  #   curNode = self.head
+  #   while curNode:
+  #     yield curNode 
+  #     curNode = curNode.next 
   
 class Queue:
   def __init__(self):
@@ -27,7 +27,7 @@ class Queue:
 
   def enqueue(self,value):
     newNode = Node(value)
-    if self.linkedList.head is None: #if at beginning and only node
+    if self.linkedList.head == None: #if at beginning and only node
       self.linkedList.head = newNode
       self.linkedList.tail = newNode
     else:
@@ -35,7 +35,7 @@ class Queue:
       self.linkedList.tail = newNode
 
   def isEmpty(self):
-    if self.linkedList.head is None:
+    if self.linkedList.head == None:
       return True
     else:
       return False
@@ -62,10 +62,10 @@ class Queue:
     self.linkedList.head = None
     self.linkedList.tail = None
 
-custQueue = Queue()
-custQueue.enqueue(1)
-custQueue.enqueue(2)
-custQueue.enqueue(3)
-print(custQueue)
-print(custQueue.dequeue())
-print(custQueue)
+# custQueue = Queue()
+# custQueue.enqueue(1)
+# custQueue.enqueue(2)
+# custQueue.enqueue(3)
+# print(custQueue)
+# print(custQueue.dequeue())
+# print(custQueue)
