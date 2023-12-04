@@ -146,6 +146,7 @@ def insertNode(rootNode, nodeValue):
     balance = getBalance(rootNode)
 
     # Perform rotations to maintain AVL balance if necessary
+    # left left condition hence right rotation
     if balance > 1 and nodeValue < rootNode.leftChild.data:
         return rightRotate(rootNode)
     
@@ -163,19 +164,6 @@ def insertNode(rootNode, nodeValue):
     return rootNode
 
 # Function to find the node with the minimum value in a BST
-def getMinValueNode(rootNode):
-    if rootNode is None or rootNode.leftChild is None:
-        return rootNode
-    return getMinValueNode(rootNode.leftChild)
-
-# Create a new AVL tree with root node containing value 5
-newAVL = AVLNode(5)
-# Insert nodes with values 10, 15, and 20 into the AVL tree
-newAVL = insertNode(newAVL, 10)
-newAVL = insertNode(newAVL, 15)
-newAVL = insertNode(newAVL, 20)
-# Perform level-order traversal on the AVL tree
-BST.levelOrderTraversal(newAVL)
 
 def getMinValueNode(rootNode):
   if rootNode is None or rootNode.leftChild is None:
@@ -183,12 +171,63 @@ def getMinValueNode(rootNode):
   return getMinValueNode(rootNode.leftChild)
 
 
-# def deleteNode(rootNode,nodeValue):
+def deleteNode(rootNode,nodeValue):
+  #  if the tree is empty
+  if not rootNode:
+     return rootNode
+  
+  #  if the value is less than the current node's value,delete from left subtree
+  elif nodeValue < rootNode.data:
+     rootNode.leftChild = deleteNode(rootNode.leftChild,nodeValue)
 
-newAVL = AVLNode(5)
+  # if value greater than current node, delete from right subtree
+  elif nodeValue > rootNode.data:
+     rootNode.rightChild = deleteNode(rootNode.rightChild,nodeValue)
+
+  # if value found, perform deletion
+  else:
+    #  if node has one child or no child
+    if rootNode.leftChild is None:
+       temp = rootNode.rightChild
+       rootNode= None
+       return temp
+    elif rootNode.rightChild is None:
+       temp = rootNode.leftChild
+       rootNode= None
+       return temp
+    
+    # if the node has 3 children, get the smallest in the right subtree / in order successor
+    temp = getMinValueNode(rootNode.rightChild)
+    rootNode.data = temp.data
+    rootNode.rightChild = deleteNode(rootNode.rightChild,temp.data)
+
+  # update height of current node
+  rootNode.height = 1 + max(getHeight(rootNode.leftChild),getHeight(rootNode.rightChild))
+
+  # get the balance factor of the current node
+  balance = getBalance(rootNode)
+
+  if balance > 1 and getBalance(rootNode.leftChild) >= 0: # LL condition
+     return rightRotate(rootNode)
+  if balance < -1 and getBalance(rootNode.rightChild) <= 0: # RR condition
+     return leftRotate(rootNode)
+  if balance > 1 and getBalance(rootNode.leftChild) < 0: # LR condition
+     rootNode.leftChild = leftRotate(rootNode.leftChild)
+     return rightRotate(rootNode)
+  if balance < -1 and getBalance(rootNode.rightChild) > 0: # RL condition
+     rootNode.rightChild = rightRotate(rootNode.rightChild)
+     return leftRotate(rootNode)
+  
+
+  return rootNode
+
+
+newAVL = AVLNode(50)
 # print(newAVL.height)
 newAVL = insertNode(newAVL, 10)
 newAVL = insertNode(newAVL, 15)
 newAVL = insertNode(newAVL, 20)
-# deleteAVL(newAVL)
+BST.levelOrderTraversal(newAVL)
+print('--------------------')
+deleteNode(newAVL,15)
 BST.levelOrderTraversal(newAVL)
