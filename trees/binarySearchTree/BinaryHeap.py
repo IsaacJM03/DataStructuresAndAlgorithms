@@ -1,6 +1,3 @@
-from heapq import heappop
-
-
 class Heap:
   def __init__(self,size) -> None:
     self.customList = (size + 1) * [None] # we can ignore the index 0 and perform calculations more easily using 1-based indexing. Custom List help stores the elements of the binary heap
