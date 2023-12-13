@@ -28,7 +28,7 @@ def insertionSort(customList): # -----------> 0(n^2)
       customList[j+1] = customList[j] #  Move elements greater than the current element to the right.
       j -= 1 # reduce elements in unsorted array
     customList[j+1] = key # Insert the current element at its correct position in the sorted array.
-  print(customList)
+  return customList
 
 
 def bucketSort(customList):
@@ -44,7 +44,8 @@ def bucketSort(customList):
     arr[index_b-1].append(j) # inserting into appropriate basing on index j starting with the last
 
   for i in range(numberOfBuckets):
-    arr[i] = insertionSort(arr[i]) # sorting the bucket, not entire list
+    if arr[i]:
+      arr[i] = insertionSort(arr[i]) # sorting the bucket, not entire list
 
   k = 0
   for i in range(numberOfBuckets):
@@ -102,12 +103,59 @@ def mergeSort(customList,l ,r):
     merge(customList,l,m,r)
   return customList
 
+def partition(customList, low, high):
+  i = low - 1 # index of smaller element
+  pivot = customList[high] # pivot
+  for j in range(low,high): # traverse all elements from low to high
+    if customList[j] <= pivot: # if current element is smaller than or equal to pivot
+      i += 1
+      customList[i],customList[j] = customList[j],customList[i] # swap elements 
+  customList[i+1],customList[high] = customList[high],customList[i+1] # swap new pivot with last element
+  return (i+1)
+
+def quickSort(customList,low,high):
+  if low < high: # if array has more than 1 element
+    pi = partition(customList,low,high) # partition index is pi
+    quickSort(customList,low,pi-1) # sort elements before/left of pi
+    quickSort(customList,pi+1,high) # sort elements on the right of pi 
 
 
+def heapify(customList,n,i):
+  smallest = i
+  l = 2 * i + 1 # left child
+  r = 2 * i + 2 # right child
+  
+  if l < n and customList[l] < customList[smallest]:
+    smallest = l # left child set to smallest
 
-sampleList = [3,1]
+  if r < n and customList[r] < customList[smallest]:
+    smallest = r # right child set to smallest
+
+  if smallest != i:
+    customList[i],customList[smallest] = customList[smallest],customList[i]
+    heapify(customList,n,smallest) # setting new head as smallest
+
+def heapSort(customList):
+  n = len(customList)
+  for i in range(int(n/2)-1,-1,-1): # building the heap, looping from last non-leaf node skipping leaf nodes up to root
+    heapify(customList,n,i) # setting new head as current element
+  
+  for i in range(n-1,0,-1):
+    customList[i],customList[0] = customList[0],customList[i] # swap root with last element
+    heapify(customList,i,0) # setting new head as root
+  customList.reverse()
+
+
+sampleList = [3,1,5,6,7,9,10,2,4,8]
+# heapSort(sampleList)
+# print(sampleList)
+
+# low = 0
+# high = len(sampleList) - 1
+quickSort(sampleList, 0, len(sampleList) - 1)
+print(sampleList)
 # print(mergeSort(sampleList,0,7))
-bucketSort(sampleList)
-# insertionSort(sampleList)
+print(bucketSort(sampleList))
+insertionSort(sampleList)
 # bubbleSort(sampleList)
 # selectionSort(sampleList)
