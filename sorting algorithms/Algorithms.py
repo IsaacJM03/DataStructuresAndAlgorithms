@@ -6,7 +6,7 @@ def bubbleSort(customList):   # ---------> O(n^2)
     for j in range(len(customList)-i-1): # need to decrease number of loops as the last is always regarded as "fully sorted"
       if customList[j] > customList[j+1]: # j+1 is next(2nd) element in adajcent pair
         customList[j],customList[j+1] = customList[j+1], customList[j]
-  print(customList)
+  return customList
 
 
 def selectionSort(customList):  #----> O(n^2)
@@ -16,7 +16,7 @@ def selectionSort(customList):  #----> O(n^2)
       if customList[min_index] > customList[j]:
         min_index = j #swapping smallest element in unsorted to beginning
     customList[i],customList[min_index] = customList[min_index], customList[i]
-  print(customList)
+  return customList
 
 
 
@@ -45,7 +45,7 @@ def bucketSort(customList):
 
   for i in range(numberOfBuckets):
     if arr[i]:
-      arr[i] = insertionSort(arr[i]) # sorting the bucket, not entire list
+      arr[i] = quickSort(arr[i],0,len(arr[i])-1) # sorting the bucket, not entire list
 
   k = 0
   for i in range(numberOfBuckets):
@@ -118,6 +118,7 @@ def quickSort(customList,low,high):
     pi = partition(customList,low,high) # partition index is pi
     quickSort(customList,low,pi-1) # sort elements before/left of pi
     quickSort(customList,pi+1,high) # sort elements on the right of pi 
+  return customList
 
 
 def heapify(customList,n,i):
@@ -147,8 +148,8 @@ def heapSort(customList):
 
 
 sampleList = [3,1,5,6,7,9,10,2,4,8]
-# heapSort(sampleList)
-# print(sampleList)
+heapSort(sampleList)
+print(sampleList)
 
 # low = 0
 # high = len(sampleList) - 1
@@ -156,6 +157,6 @@ quickSort(sampleList, 0, len(sampleList) - 1)
 print(sampleList)
 # print(mergeSort(sampleList,0,7))
 print(bucketSort(sampleList))
-insertionSort(sampleList)
-# bubbleSort(sampleList)
-# selectionSort(sampleList)
+print(insertionSort(sampleList))
+# print(bubbleSort(sampleList))
+# print(selectionSort(sampleList))
