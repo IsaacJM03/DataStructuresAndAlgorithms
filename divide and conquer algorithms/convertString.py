@@ -13,3 +13,5 @@ def findMinOperation(s1,s2,index1,index2):
     insertOperation = 1 + findMinOperation(s1,s2,index1+1,index2)
     replaceOperation = 1 + findMinOperation(s1,s2,index1+1,index2+1)
     return min(deleteOperation,insertOperation,replaceOperation)
+  
+print(findMinOperation("table", "tbrltt", 0, 0))
