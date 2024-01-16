@@ -98,7 +98,7 @@ def deleteNode(rootNode,nodeValue):
     
     temp = minNode(rootNode.rightChild) #if 2 children, check for smallest
     rootNode.data = temp.data # replace with smallest
-    rootNode.rightChild = deleteNode(rootNode.rightChild,temp.data) # recusrively delete the smallest node from the right
+    rootNode.rightChild = deleteNode(rootNode.rightChild,temp.data) # recursively delete the smallest node from the right
     return rootNode #return modified root/ new parent
   
 def deleteBST(rootNode):
