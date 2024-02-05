@@ -1,4 +1,5 @@
 # maximum value must be in knapsack
+# fractional knapsack problem is a problem of finding the maximum value that can be put in a knapsack of given capacity
 
 class Item:
   def __init__(self,weight,value) -> None:
@@ -11,7 +12,7 @@ def knapsackMethod(items,capacity):
   usedCapacity = 0
   totalValue = 0
   for i in items:
-    if usedCapacity + i.weight <= capacity: # we are still filling
+    if (usedCapacity + i.weight) <= capacity: # we are still filling
       usedCapacity += i.weight # storing the values in knapsack
       totalValue += i.value
     else: # if it is empty
